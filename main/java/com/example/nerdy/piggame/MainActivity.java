@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     public void rollDie(View v){
         ///Log.d(RPS_Game, "at beginning of rollDie in main");
         Random rand = new Random();                 // generate a random 1-6 for the die
-        int n = rand.nextInt(4);                    // Gives n such that 0 <= n < 6
+        int n = rand.nextInt(6);                    // Gives n such that 0 <= n < 6
         n = n + 1;
         /////////////////////////////////////////////////////////n = 1;
         showDice(n);
