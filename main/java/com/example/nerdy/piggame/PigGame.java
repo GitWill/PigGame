@@ -19,7 +19,7 @@ class PigGame {
     }
 
     public void endGame(){
-        Log.d(RPS_Game, "in endGame ");
+        //Log.d(RPS_Game, "in endGame ");
 
         String playerName;
         if (player1.getTotScore() > player2.getTotScore()){         //if player 1 won
@@ -37,7 +37,12 @@ class PigGame {
             }
             Toast.makeText(context, playerName + " won the game", Toast.LENGTH_LONG).show();
         }else{                                                      //else its a tie
-            Toast.makeText(context, "Tie game... shame on player 2", Toast.LENGTH_LONG).show();
+            if (player2.getName().equals("")){
+                playerName = "Player 2";
+            }else {
+                playerName = player2.getName();
+            }
+            Toast.makeText(context, "Tie game... shame on "+ playerName, Toast.LENGTH_LONG).show();
         }
         clearAll();
     }
@@ -51,17 +56,17 @@ class PigGame {
     }
 
     public void endSingleTurn(){
-        Log.d(RPS_Game, "in endSingleTurn ");
-
-        if(PigPlayer.getIsTurn() == 2 && player1.getTotScore() > 19) {//if player ends turn while player 1 has 100+ points
-            endGame();                              //then player one wins
-            Log.d(RPS_Game, "in endSingleTurn ");
+        //Log.d(RPS_Game, "in endSingleTurn ");
+        player1.setTotScore(player1.getTotScore() + player1.getTurnPoints());
+        player2.setTotScore(player2.getTotScore() + player2.getTurnPoints());
+        if (PigPlayer.getIsTurn() == 2 && (player2.getTotScore() > 19 || player1.getTotScore() > 19)){
+            endGame();
         }else if (PigPlayer.getIsTurn() == 1){      //if it is player 1's turn
-            player1.setTotScore(player1.getTurnPoints() + player1.getTotScore());//add player 1's turn points to their total
+            //player1.setTotScore(player1.getTurnPoints() + player1.getTotScore());//add player 1's turn points to their total
             player1.setTurnPoints(0);               //reset player 1's turn points
             PigPlayer.setIsTurn(2);                 //now it will be player 2's turn
         } else {                                    //else it is player 2's turn
-            player2.setTotScore(player2.getTurnPoints() + player2.getTotScore());//add player 2's turn points to their total
+            //player2.setTotScore(player2.getTurnPoints() + player2.getTotScore());//add player 2's turn points to their total
             player2.setTurnPoints(0);               //reset player 2's turn points
             PigPlayer.setIsTurn(1);                 //now it will be player 1's turn
         }

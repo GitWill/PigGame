@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -90,12 +89,12 @@ public class MainActivity extends AppCompatActivity {
     public void rollDie(View v){
         ///Log.d(RPS_Game, "at beginning of rollDie in main");
         Random rand = new Random();                 // generate a random 1-6 for the die
-        int n = rand.nextInt(6);                    // Gives n such that 0 <= n < 6
+        int n = rand.nextInt(4);                    // Gives n such that 0 <= n < 6
         n = n + 1;
         /////////////////////////////////////////////////////////n = 1;
-        showDice(5);
+        showDice(n);
 
-        myGame.handleRoll(5);
+        myGame.handleRoll(n);
         //Log.d(RPS_Game, "returned from handleRoll");
         updateUI();
         //Log.d(RPS_Game, "returned from updateUI");
@@ -124,6 +123,9 @@ public class MainActivity extends AppCompatActivity {
         whoTurn = (TextView) findViewById(R.id.textView9);
         turnPts = (TextView) findViewById(R.id.textView11);
         dieImg = (ImageView) findViewById(R.id.imageView);
+        //p1Name.setInputType(EditText.TYPE_CLASS_TEXT);
+        //p2Name.setInputType(EditText.TYPE_CLASS_TEXT);
+
     }
 
     @Override
