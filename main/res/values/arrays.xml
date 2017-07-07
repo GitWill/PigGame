@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="handicapping_labels">
+        <item>Zero Points</item>
+        <item>Ten Points</item>
+        <item>Twenty Points</item>
+        <item>Thirty Points</item>
+    </string-array>
+    <string-array name="handicapping_values">
+        <item>0</item>
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+    </string-array>
+
+    <string-array name="die_size_keys">
+        <item>Use 3 sided dice</item>
+        <item>Use 6 sided dice</item>
+        <item>Use 9 sided dice</item>
+    </string-array>
+    <string-array name="die_size_values">
+        <item>2</item>
+        <item>6</item>
+        <item>9</item>
+    </string-array>
+
+    <string-array name="win_keys">
+        <item>Play to 50</item>
+        <item>Play to 100</item>
+        <item>Play to 200</item>
+    </string-array>
+    <string-array name="win_values">
+        <item>50</item>
+        <item>100</item>
+        <item>200</item>
+    </string-array>
+
+</resources>

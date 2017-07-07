@@ -77,47 +77,22 @@ class PigGame {
             endGame();
         }else if(PigPlayer.getIsTurn() == 2 && die ==1 && player1.getTotScore() > 19)//if player 2 rolled a 1 while player 1 has 100+ points
             endGame();                              //then player one wins
-        else {
-            if(die == 1){
-                if(PigPlayer.getIsTurn() == 1){       //if it is player ones turn
+        else if(die == 1) {
+            if(die == 1) {
+                if (PigPlayer.getIsTurn() == 1) {       //if it is player ones turn
                     player1.setTurnPoints(0);         //reset turn total
                     PigPlayer.setIsTurn(2);           //change to player twos turn
-                }
-                else{                                 //if it is player twos turn
+                } else {                                 //if it is player twos turn
                     player2.setTurnPoints(0);         //reset turn total
                     PigPlayer.setIsTurn(1);           //change to player ones turn
                 }
-            }else if(die == 2){                          //any other number just adds to the accumulated turn points
+            }
+        }else{                          //any other number just adds to the accumulated turn points
                 if(PigPlayer.getIsTurn() == 1) {
-                    player1.accumulate(2);
+                    player1.accumulate(die);
                 }else{
-                    player2.accumulate(2);
-                }
-            }else if(die == 3){
-                if(PigPlayer.getIsTurn() == 1) {
-                    player1.accumulate(3);
-                }else{
-                    player2.accumulate(3);
-                }
-            }else if(die == 4){
-                if(PigPlayer.getIsTurn() == 1) {
-                    player1.accumulate(4);
-                }else{
-                    player2.accumulate(4);
-                }
-            }else if(die == 5){
-                if(PigPlayer.getIsTurn() == 1) {
-                    player1.accumulate(5);
-                }else{
-                    player2.accumulate(5);
-                }
-            }else if(die == 6){
-                if(PigPlayer.getIsTurn() == 1) {
-                    player1.accumulate(6);
-                }else{
-                    player2.accumulate(6);
+                    player2.accumulate(die);
                 }
             }
-        }
     }
 }

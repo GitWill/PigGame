@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">PigGame</string>
+    <string name="settings_name">Settings</string>
+
+    <string name="handi_title">Player one will begin games with points</string>
+    <string name="handi_summary">Sets how many points player one starts with</string>
+
+    <string name="score_title">Choose winning score</string>
+    <string name="score_summary">Sets the winnning condition</string>
+
+    <string name="save_title">Save games or start new on launching app</string>
+    <string name="save_summary">On opening app: continue or reset the game?</string>
+
+    <string name="die_num_title">Choose how many sides the dice will have</string>
+    <string name="die_num_summary">Sets the number of sides on the dice</string>
+
+    <string name="die_size_title">Choose the number of dice used in a game</string>
+    <string name="die_size_summary">Sets the number of sides on the dice</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="menu_about">About</string>
+
+
+
+
+
+
+
 </resources>
