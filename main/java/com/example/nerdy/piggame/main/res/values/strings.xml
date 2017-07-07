@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">PigGame</string>
+    <string name="handicapping">Select a player to handicap</string>
+    <string-array name="default_handicapping_keys">
+        <item>Ten Points</item>
+        <item>Twenty Points</item>
+        <item>Thirty Points</item>
+    </string-array>
+    <string-array name="default_handicapping_values">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+    </string-array>
+    <string name="other_settings">Other Settings</string>
+</resources>
