@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView turnPts;       //displays accumulated points for one turn
     private ImageView dieImg;       //displays image for die
     private int myRandom;
-    private int handi=0;
+    //private int handi=0;
     private int winningScore;
 
     // define the SharedPreferences object
@@ -41,13 +41,7 @@ public class MainActivity extends AppCompatActivity {
         //myGame.player1.clearAll();                                      //clear all relevant player instance variables
         //myGame.player2.clearAll();
         //savedValues = PreferenceManager.getDefaultSharedPreferences(this);
-        savedValues = PreferenceManager.getDefaultSharedPreferences(this);
-        handi = Integer.parseInt(savedValues.getString("handi_value", "0"));
-
-        if (!(myGame.player1.getTotScore() == handi)) {
-            //Log.d(RPS_Game, "returned from handleRoll");
-            myGame.player1.setTotScore(handi);
-        }
+        updateHandi();
         updateUI();                                                     //clear UI
         dieImg.setImageResource(R.drawable.blank);//display blank die
         //Log.d(RPS_Game, "at end of newGame in main");
@@ -62,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         showDice(myRandom);
 
         myGame.handleRoll(myRandom);
+        updateHandi();
         updateUI();
         //Log.d(RPS_Game, "returned from updateUI");
 
@@ -71,12 +66,7 @@ public class MainActivity extends AppCompatActivity {
         //Log.d(RPS_Game, "in endTurn");
         myGame.endSingleTurn();
         //Log.d(RPS_Game, "in endTurn returned from endSingleTurn");
-        if (myGame.player1.getTotScore() == 0) {
-            //Log.d(RPS_Game, "returned from handleRoll");
-            savedValues = PreferenceManager.getDefaultSharedPreferences(this);
-            handi = Integer.parseInt(savedValues.getString("handi_value", "0"));
-            myGame.player1.setTotScore(handi);
-        }
+        updateHandi();
         updateUI();
         dieImg.setImageResource(R.drawable.blank);//display blank die
     }
@@ -134,7 +124,14 @@ public class MainActivity extends AppCompatActivity {
             dieImg.setImageResource(R.drawable.die6);//display die
     }
 
-
+    public void updateHandi(){
+        savedValues = PreferenceManager.getDefaultSharedPreferences(this);
+        int handi = Integer.parseInt(savedValues.getString("handi_value", "0"));
+        if (myGame.player1.getTotScore() < handi) {
+            //Log.d(RPS_Game, "returned from handleRoll");
+            myGame.player1.setTotScore(handi);
+        }
+    }
 
 
     @Override
@@ -153,13 +150,7 @@ public class MainActivity extends AppCompatActivity {
         dieImg = (ImageView) findViewById(R.id.imageView);
         //p1Name.setInputType(EditText.TYPE_CLASS_TEXT);
         //p2Name.setInputType(EditText.TYPE_CLASS_TEXT);
-        savedValues = PreferenceManager.getDefaultSharedPreferences(this);
-        handi = Integer.parseInt(savedValues.getString("handi_value", "0"));
-
-        if (myGame.player1.getTotScore() < handi) {
-            //Log.d(RPS_Game, "returned from handleRoll");
-            myGame.player1.setTotScore(handi);
-        }
+        updateHandi();
     }
 
     @Override
@@ -208,14 +199,7 @@ public class MainActivity extends AppCompatActivity {
         myGame.player1.setName(savedValues.getString("saveP1Name",""));
         myGame.player2.setName(savedValues.getString("saveP2Name",""));
 
-        savedValues = PreferenceManager.getDefaultSharedPreferences(this);
-
-        handi = Integer.parseInt(savedValues.getString("handi_value", "0"));
-
-        if (myGame.player1.getTotScore() < handi) {
-            //Log.d(RPS_Game, "returned from handleRoll");
-            myGame.player1.setTotScore(handi);
-        }
+        updateHandi();
         updateUI();
     }
 
