@@ -49,25 +49,6 @@ public class MainActivity extends AppCompatActivity {
         //Log.d(RPS_Game, "at end of newGame in main");
     }
 
-    public void rollDie(View v) {
-        ///Log.d(RPS_Game, "at beginning of rollDie in main");
-        Random rand = new Random();                 // generate a random 1-6 for the die
-
-        savedValues = PreferenceManager.getDefaultSharedPreferences(this);
-        int die_size = Integer.parseInt(savedValues.getString("die_size_key", "6"));
-
-        myRandom = rand.nextInt(die_size);                    // Gives n such that 0 <= n < 6
-        myRandom = myRandom + 1;
-        /////////////////////////////////////////////////////////n = 1;
-        showDice(myRandom);
-
-        myGame.handleRoll(myRandom);
-        updateHandi();
-        updateUI();
-        //Log.d(RPS_Game, "returned from updateUI");
-
-    }
-
     public void endTurn(View v) {
         //Log.d(RPS_Game, "in endTurn");
         myGame.endSingleTurn();
@@ -109,6 +90,25 @@ public class MainActivity extends AppCompatActivity {
                 whoTurn.setText(myGame.player2.getName() + ", it's your turn");     //else display player 2's name
             }
         }
+
+    }
+
+    public void rollDie(View v) {
+        ///Log.d(RPS_Game, "at beginning of rollDie in main");
+        Random rand = new Random();                 // generate a random 1-6 for the die
+
+        savedValues = PreferenceManager.getDefaultSharedPreferences(this);
+        int die_size = Integer.parseInt(savedValues.getString("die_size_key", "6"));
+
+        myRandom = rand.nextInt(die_size);                    // Gives n such that 0 <= n < 6
+        myRandom = myRandom + 1;
+        /////////////////////////////////////////////////////////n = 1;
+        showDice(myRandom);
+
+        myGame.handleRoll(myRandom);
+        updateHandi();
+        updateUI();
+        //Log.d(RPS_Game, "returned from updateUI");
 
     }
 
