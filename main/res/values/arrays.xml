@@ -19,7 +19,7 @@
         <item>Use 9 sided dice</item>
     </string-array>
     <string-array name="die_size_values">
-        <item>2</item>
+        <item>3</item>
         <item>6</item>
         <item>9</item>
     </string-array>

@@ -1,6 +1,9 @@
 package com.example.nerdy.piggame;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -8,14 +11,21 @@ import android.widget.Toast;
  * Created by Nerdy on 7/3/2017.
  */
 
-class PigGame {
+class PigGame extends AppCompatActivity {
     private static final String RPS_Game = "WillsFinalComment";
     PigPlayer player1 = new PigPlayer();
     PigPlayer player2 = new PigPlayer();
     Context context;
+    private int winCond;
+
+
 
     PigGame(Context a){
         context = a;
+    }//constructor takes in a context
+
+    public void setWinCond(int in){
+        winCond = in;
     }
 
     public void endGame(){
@@ -59,7 +69,7 @@ class PigGame {
         //Log.d(RPS_Game, "in endSingleTurn ");
         player1.setTotScore(player1.getTotScore() + player1.getTurnPoints());
         player2.setTotScore(player2.getTotScore() + player2.getTurnPoints());
-        if (PigPlayer.getIsTurn() == 2 && (player2.getTotScore() > 19 || player1.getTotScore() > 19)){
+        if (PigPlayer.getIsTurn() == 2 && (player2.getTotScore() >= winCond || player1.getTotScore() >= winCond)){
             endGame();
         }else if (PigPlayer.getIsTurn() == 1){      //if it is player 1's turn
             //player1.setTotScore(player1.getTurnPoints() + player1.getTotScore());//add player 1's turn points to their total
@@ -73,9 +83,9 @@ class PigGame {
     }
 
     public void handleRoll(int die){
-        if(PigPlayer.getIsTurn() == 1 && die == 1 && player2.getTotScore() > 19){
+        if(PigPlayer.getIsTurn() == 1 && die == 1 && player2.getTotScore() >= winCond){
             endGame();
-        }else if(PigPlayer.getIsTurn() == 2 && die ==1 && player1.getTotScore() > 19)//if player 2 rolled a 1 while player 1 has 100+ points
+        }else if(PigPlayer.getIsTurn() == 2 && die ==1 && player1.getTotScore() >= winCond)//if player 2 rolled a 1 while player 1 has 100+ points
             endGame();                              //then player one wins
         else if(die == 1) {
             if(die == 1) {

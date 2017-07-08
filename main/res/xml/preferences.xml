@@ -4,7 +4,7 @@
     <PreferenceCategory
         android:title="@string/handi_title">
         <ListPreference
-            android:key="handi_value"
+            android:key="handi_key"
             android:summary="@string/handi_summary"
             android:entries="@array/handicapping_labels"
             android:entryValues="@array/handicapping_values"
@@ -14,19 +14,21 @@
     <PreferenceCategory
         android:title="@string/score_title">
         <ListPreference
+            android:key="score_key"
             android:summary="@string/score_summary"
             android:entries="@array/win_keys"
             android:entryValues="@array/win_values"
-            android:defaultValue="1"/>
+            android:defaultValue="100"/>
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/die_size_title">
         <ListPreference
+            android:key="die_size_key"
             android:summary="@string/die_size_summary"
             android:entries="@array/die_size_keys"
             android:entryValues="@array/die_size_values"
-            android:defaultValue="2"/>
+            android:defaultValue="6"/>
     </PreferenceCategory>
 
     <PreferenceCategory

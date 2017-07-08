@@ -40,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
         myGame.clearAll();
         //myGame.player1.clearAll();                                      //clear all relevant player instance variables
         //myGame.player2.clearAll();
-        //savedValues = PreferenceManager.getDefaultSharedPreferences(this);
+        savedValues = PreferenceManager.getDefaultSharedPreferences(this);
+        int winCondNum = Integer.parseInt(savedValues.getString("score_key", "100"));
+        myGame.setWinCond(winCondNum);
         updateHandi();
         updateUI();                                                     //clear UI
         dieImg.setImageResource(R.drawable.blank);//display blank die
@@ -50,7 +52,11 @@ public class MainActivity extends AppCompatActivity {
     public void rollDie(View v) {
         ///Log.d(RPS_Game, "at beginning of rollDie in main");
         Random rand = new Random();                 // generate a random 1-6 for the die
-        myRandom = rand.nextInt(6);                    // Gives n such that 0 <= n < 6
+
+        savedValues = PreferenceManager.getDefaultSharedPreferences(this);
+        int die_size = Integer.parseInt(savedValues.getString("die_size_key", "6"));
+
+        myRandom = rand.nextInt(die_size);                    // Gives n such that 0 <= n < 6
         myRandom = myRandom + 1;
         /////////////////////////////////////////////////////////n = 1;
         showDice(myRandom);
@@ -122,11 +128,17 @@ public class MainActivity extends AppCompatActivity {
             dieImg.setImageResource(R.drawable.die5);//display die
         else if (n == 6)
             dieImg.setImageResource(R.drawable.die6);//display die
+        else if (n == 7)
+            dieImg.setImageResource(R.drawable.die7);//display die
+        else if (n == 8)
+            dieImg.setImageResource(R.drawable.die8);//display die
+        else if (n == 9)
+            dieImg.setImageResource(R.drawable.die9);//display die
     }
 
     public void updateHandi(){
         savedValues = PreferenceManager.getDefaultSharedPreferences(this);
-        int handi = Integer.parseInt(savedValues.getString("handi_value", "0"));
+        int handi = Integer.parseInt(savedValues.getString("handi_key", "0"));
         if (myGame.player1.getTotScore() < handi) {
             //Log.d(RPS_Game, "returned from handleRoll");
             myGame.player1.setTotScore(handi);
