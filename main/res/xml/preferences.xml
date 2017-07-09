@@ -4,11 +4,11 @@
     <PreferenceCategory
         android:title="@string/handi_title">
         <ListPreference
-            android:key="handi_key"
-            android:summary="@string/handi_summary"
+            android:defaultValue="0"
             android:entries="@array/handicapping_labels"
             android:entryValues="@array/handicapping_values"
-            android:defaultValue="0"/>
+            android:key="handi_key"
+            android:summary="@string/handi_summary" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -32,14 +32,45 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/die_size_title">
+        android:title="@string/double_down_title"
+        android:key="double_down_category_key">
+        <CheckBoxPreference
+            android:key="double_down_checkbox_key"
+            android:summary="@string/double_down_summary"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/save_title">
+        android:title="@string/die_color_title"
+        android:key="die_color_category_key">
+        <CheckBoxPreference
+            android:key="die_color_checkbox_key"
+            android:summary="@string/die_color_summary"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
-
-
-
 </PreferenceScreen>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

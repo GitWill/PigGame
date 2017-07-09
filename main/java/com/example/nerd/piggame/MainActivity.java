@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,10 +23,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView whoTurn;       //displays whose turn it is
     private TextView turnPts;       //displays accumulated points for one turn
     private ImageView dieImg;       //displays image for die
+    private boolean blueDie;
     private int myRandom;
     //private int handi=0;
     private int winningScore;
-
+    //private boolean doubleDown = false;
     // define the SharedPreferences object
     private SharedPreferences savedValues;
     private static final String RPS_Game = "WillsFinalComment";
@@ -40,8 +40,9 @@ public class MainActivity extends AppCompatActivity {
         //myGame.player1.clearAll();                                      //clear all relevant player instance variables
         //myGame.player2.clearAll();
         savedValues = PreferenceManager.getDefaultSharedPreferences(this);
-        int winCondNum = Integer.parseInt(savedValues.getString("score_key", "100"));
-        myGame.setWinCond(winCondNum);
+        myGame.SetDoubleDown(savedValues.getBoolean("double_down_checkbox_key", false));
+        blueDie = savedValues.getBoolean("die_color_checkbox_key", false);
+        myGame.setWinCond(Integer.parseInt(savedValues.getString("score_key", "100")));
         updateHandi();
         updateUI();                                                     //clear UI
         dieImg.setImageResource(R.drawable.blank);//display blank die
@@ -50,46 +51,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void endTurn(View v) {
         //Log.d(RPS_Game, "in endTurn");
+
         myGame.endSingleTurn();
         //Log.d(RPS_Game, "in endTurn returned from endSingleTurn");
         updateHandi();
         updateUI();
         dieImg.setImageResource(R.drawable.blank);//display blank die
-    }
-
-    public void updateUI() {         //this function updates the ui elements
-        //Log.d(RPS_Game, "here in updateUI in main");
-        if (!(p1Name.getText().toString().equals(""))) {
-            myGame.player1.setName(p1Name.getText().toString());
-        }
-        if (!(p2Name.getText().toString().equals(""))) {
-            myGame.player2.setName(p2Name.getText().toString());
-        }
-        p1Name.setText(myGame.player1.getName());
-        p2Name.setText(myGame.player2.getName());
-        p1Score.setText(String.valueOf(myGame.player1.getTotScore()));
-        p2Score.setText(String.valueOf(myGame.player2.getTotScore()));
-        //Log.d(RPS_Game, "here in updateUI in main");
-
-        if (PigPlayer.getIsTurn() == 1) {                               //if it is player 1's turn
-            turnPts.setText(String.valueOf(myGame.player1.getTurnPoints()));            //show player 1's single turn accumulated points
-            if (myGame.player1.getName().equals("")) {                  //if player one has not entered a name
-                whoTurn.setText("Player 1, it is your turn");           //keep default
-            } else {
-                whoTurn.setText(myGame.player1.getName() + ", it's your turn");    //else display player 1's name
-            }
-        } else {                                                            //else it is player 2's turn
-            //Log.d(RPS_Game, "it is player 2's turn");
-            turnPts.setText(String.valueOf(myGame.player2.getTurnPoints()));              //show player 2's single turn accumulated points
-            //Log.d(RPS_Game, "here in updateUI in main");
-
-            if (p2Name.getText().toString().equals("")) {                 //if player two has not entered a name
-                whoTurn.setText("Player 2, it is your turn");             //keep default
-            } else {
-                whoTurn.setText(myGame.player2.getName() + ", it's your turn");     //else display player 2's name
-            }
-        }
-
     }
 
     public void rollDie(View v) {
@@ -112,27 +79,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showDice(int n) {
-        //Log.d(RPS_Game, "at beginning of showDice in main");
-        if (n == 1) {
-            //Log.d(RPS_Game, "n == 1");
-            dieImg.setImageResource(R.drawable.die1);//display die
-            //Log.d(RPS_Game, "called setImage with 1");
-        } else if (n == 2)
-            dieImg.setImageResource(R.drawable.die2);//display die
-        else if (n == 3)
-            dieImg.setImageResource(R.drawable.die3);//display die
-        else if (n == 4)
-            dieImg.setImageResource(R.drawable.die4);//display die
-        else if (n == 5)
-            dieImg.setImageResource(R.drawable.die5);//display die
-        else if (n == 6)
-            dieImg.setImageResource(R.drawable.die6);//display die
-        else if (n == 7)
-            dieImg.setImageResource(R.drawable.die7);//display die
-        else if (n == 8)
-            dieImg.setImageResource(R.drawable.die8);//display die
-        else if (n == 9)
-            dieImg.setImageResource(R.drawable.die9);//display die
+        if(blueDie){
+            //Log.d(RPS_Game, "at beginning of showDice in main");
+            if (n == 1) {dieImg.setImageResource(R.drawable.blue1);}
+            else if (n == 2)dieImg.setImageResource(R.drawable.blue2);//display die
+            else if (n == 3)dieImg.setImageResource(R.drawable.blue3);//display die
+            else if (n == 4)dieImg.setImageResource(R.drawable.blue4);//display die
+            else if (n == 5)dieImg.setImageResource(R.drawable.blue5);//display die
+            else if (n == 6)dieImg.setImageResource(R.drawable.blue6);//display die
+            else if (n == 7)dieImg.setImageResource(R.drawable.blue7);//display die
+            else if (n == 8)dieImg.setImageResource(R.drawable.blue8);//display die
+            else if (n == 9)dieImg.setImageResource(R.drawable.blue9);//display die
+        }else {
+            if (n == 1) {dieImg.setImageResource(R.drawable.blue1);}
+            else if (n == 2)dieImg.setImageResource(R.drawable.die2);//display die
+            else if (n == 3)dieImg.setImageResource(R.drawable.die3);//display die
+            else if (n == 4)dieImg.setImageResource(R.drawable.die4);//display die
+            else if (n == 5)dieImg.setImageResource(R.drawable.die5);//display die
+            else if (n == 6)dieImg.setImageResource(R.drawable.die6);//display die
+            else if (n == 7)dieImg.setImageResource(R.drawable.die7);//display die
+            else if (n == 8)dieImg.setImageResource(R.drawable.die8);//display die
+            else if (n == 9)dieImg.setImageResource(R.drawable.die9);//display die
+        }
     }
 
     public void updateHandi(){
@@ -144,6 +112,42 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void updateUI() {         //this function updates the ui elements
+        //Log.d(RPS_Game, "here in updateUI in main");
+        if (!(p1Name.getText().toString().equals(""))) {
+            myGame.player1.setName(p1Name.getText().toString());
+        }
+        if (!(p2Name.getText().toString().equals(""))) {
+            myGame.player2.setName(p2Name.getText().toString());
+        }
+        p1Name.setText(myGame.player1.getName());
+        p2Name.setText(myGame.player2.getName());
+        p1Score.setText(String.valueOf(myGame.player1.getTotScore()));
+        p2Score.setText(String.valueOf(myGame.player2.getTotScore()));
+
+        //Log.d(RPS_Game, "here in updateUI in main");
+
+        if (PigPlayer.getIsTurn() == 1) {                               //if it is player 1's turn
+            turnPts.setText(String.valueOf(myGame.player1.getTurnPoints()));            //show player 1's single turn accumulated points
+            if (myGame.player1.getName().equals("")) {                  //if player one has not entered a name
+                whoTurn.setText("Player 1, it is your turn");           //keep default
+            } else {
+                whoTurn.setText(myGame.player1.getName() + ", it's your turn");    //else display player 1's name
+            }
+        } else {                                                            //else it is player 2's turn
+            //Log.d(RPS_Game, "it is player 2's turn");
+            turnPts.setText(String.valueOf(myGame.player2.getTurnPoints()));              //show player 2's single turn accumulated points
+            //Log.d(RPS_Game, "here in updateUI in main");
+
+            if (p2Name.getText().toString().equals("")) {                 //if player two has not entered a name
+                whoTurn.setText("Player 2, it is your turn");             //keep default
+            } else {
+                whoTurn.setText(myGame.player2.getName() + ", it's your turn");     //else display player 2's name
+            }
+        }
+        showDice(myRandom);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,10 +171,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {//save the instance vars
         super.onPause();
+        int win = myGame.getWinCond();
         int saveP1Score = myGame.player1.getTotScore();
         int saveP2Score = myGame.player2.getTotScore();
         int saveWhoTurn = PigPlayer.getIsTurn();
-        int saveImg = myRandom;
+        //int saveImg = myRandom;
         int saveTurnPoints;
         String saveP1Name = myGame.player1.getName();
         String saveP2Name = myGame.player2.getName();
@@ -182,12 +187,15 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences.Editor editor = savedValues.edit();//////CANT BE NULL?
         editor.putInt("saveP1Score", saveP1Score);//////CANT BE NULL?
+        editor.putInt("myRandom", myRandom);//////CANT BE NULL?
         editor.putInt("saveP2Score", saveP2Score);//////CANT BE NULL?
         editor.putInt("saveWhoTurn", saveWhoTurn);//////CANT BE NULL?
-        editor.putInt("saveImg", saveImg);//////CANT BE NULL?
+        editor.putInt("myRandom", myRandom);//////CANT BE NULL?
         editor.putInt("saveTurnPoints", saveTurnPoints);//////CANT BE NULL?
         editor.putString("saveP1Name", saveP1Name);//////CANT BE NULL?
         editor.putString("saveP2Name", saveP2Name);//////CANT BE NULL?
+        editor.putInt("win", win);//////CANT BE NULL?
+        editor.putBoolean("blueDie", blueDie);//////CANT BE NULL?
         editor.commit();
 
         //Log.d(RPS_Game, "in onPause");
@@ -200,6 +208,8 @@ public class MainActivity extends AppCompatActivity {
         // get the instance variables
         myGame.player1.setTotScore(savedValues.getInt("saveP1Score", 0));
         myGame.player2.setTotScore(savedValues.getInt("saveP2Score", 0));
+        //blueDie = savedValues.getBoolean("die_color_checkbox_key", false);
+
         PigPlayer.setIsTurn(savedValues.getInt("saveWhoTurn", 0));
         showDice(savedValues.getInt("saveImg", 0));
         if(PigPlayer.getIsTurn() == 1){
@@ -209,7 +219,9 @@ public class MainActivity extends AppCompatActivity {
         }
         myGame.player1.setName(savedValues.getString("saveP1Name",""));
         myGame.player2.setName(savedValues.getString("saveP2Name",""));
-
+        myGame.setWinCond(savedValues.getInt("win", 100));
+        blueDie = savedValues.getBoolean("blueDie", false);
+        myRandom = savedValues.getInt("myRandom", 6);
         updateHandi();
         updateUI();
     }

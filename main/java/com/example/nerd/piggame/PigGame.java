@@ -1,6 +1,7 @@
 package com.example.nerd.piggame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ class PigGame extends AppCompatActivity {
     PigPlayer player2 = new PigPlayer();
     Context context;
     private int winCond;
+    private boolean doubleDown;
 
 
 
@@ -26,6 +28,12 @@ class PigGame extends AppCompatActivity {
 
     public void setWinCond(int in){
         winCond = in;
+    }
+
+    public int getWinCond(){ return winCond;}
+
+    public void SetDoubleDown(boolean in){
+        doubleDown = in;
     }
 
     public void endGame(){
@@ -79,6 +87,17 @@ class PigGame extends AppCompatActivity {
             //player2.setTotScore(player2.getTurnPoints() + player2.getTotScore());//add player 2's turn points to their total
             player2.setTurnPoints(0);               //reset player 2's turn points
             PigPlayer.setIsTurn(1);                 //now it will be player 1's turn
+        }
+        if(doubleDown){
+            startActivity(new Intent(getApplicationContext(), DoubleDownActivity.class));
+        }
+    }
+
+    public void doublePoints(){
+        if(PigPlayer.getIsTurn() == 1){
+            player1.setTurnPoints(player1.getTurnPoints()*2);
+        }else{
+            player2.setTurnPoints(player2.getTurnPoints()*2);
         }
     }
 
