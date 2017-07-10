@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -122,9 +121,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        p1Name = (EditText) findViewById(R.id.textView3);   //get references to the elements of the ui which we will change
+        p1Name = (EditText) findViewById(R.id.textView3);   //define references to ui elements which we will change
         p2Name = (EditText) findViewById(R.id.textView4);
         p1Score = (TextView) findViewById(R.id.textView7);
         p2Score = (TextView) findViewById(R.id.textView8);
@@ -137,46 +135,35 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
-        int saveTurnPoints;
-
-
-
-        SharedPreferences.Editor editor = savedValues.edit();
-        editor.putString("p1n", myGame.player1.getName());
+        SharedPreferences.Editor editor = savedValues.edit();   //get the sharedpreferences editor
+        editor.putString("p1n", myGame.player1.getName());      //use the editor to save our instance vars
         editor.putString("p2n", myGame.player2.getName());
         editor.putInt("p1s", myGame.player1.getTotScore());
         editor.putInt("p2s", myGame.player2.getTotScore());
         editor.putInt("ran", myRandom);
         editor.putInt("who", PigPlayer.getIsTurn());
-
-        editor.putInt("w", myGame.getWinCond());//////CANT BE NULL?
-        editor.putBoolean("bd", blueDie);//////CANT BE NULL?
+        editor.putInt("w", myGame.getWinCond());
+        editor.putBoolean("bd", blueDie);
 
         if(PigPlayer.getIsTurn() == 1) {//if it is player ones turn
             editor.putInt("turnPts", myGame.player1.getTurnPoints());
-            //saveTurnPoints = myGame.player1.getTurnPoints();
         } else {
             editor.putInt("turnPts", myGame.player2.getTurnPoints());
-
-            //saveTurnPoints = myGame.player2.getTurnPoints();
         }
-        editor.commit();
-
-        //Log.d(RPS_Game, "in onPause");                                      //commit my saved elemnts to the SharedPreferences editor
+        editor.commit();                                        //save our preferences
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        blueDie = savedValues.getBoolean("bd", false);
-        myGame.player1.setTotScore(savedValues.getInt("p1s", 0));   //retrieve the instance variables
-        myGame.player2.setTotScore(savedValues.getInt("p2s", 0));   //from the SharedPreferences object
-        PigPlayer.setIsTurn(savedValues.getInt("who", 0));          //and set them as current instance vars
-        myGame.player1.setName(savedValues.getString("p1n",""));
-        myGame.player2.setName(savedValues.getString("p2n",""));
-        myGame.setWinCond(savedValues.getInt("w", 100));
+        myGame.player1.setName(savedValues.getString("p1n",""));    //retrieve the instance variables
+        myGame.player2.setName(savedValues.getString("p2n",""));    //from the SharedPreferences object
+        myGame.player1.setTotScore(savedValues.getInt("p1s", 0));   //and set them as current instance vars
+        myGame.player2.setTotScore(savedValues.getInt("p2s", 0));
         myRandom = savedValues.getInt("ran", 6);
+        PigPlayer.setIsTurn(savedValues.getInt("who", 0));
+        myGame.setWinCond(savedValues.getInt("w", 100));
+        blueDie = savedValues.getBoolean("bd", false);
         showDice(myRandom);
         if(PigPlayer.getIsTurn() == 1){
             myGame.player1.setTurnPoints(savedValues.getInt("turnPts", 0));
@@ -184,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
             myGame.player2.setTurnPoints(savedValues.getInt("turnPts", 0));
         }
 
-        updateHandi();
         updateUI();                                                         //show loaded vars in ui
     }
 
