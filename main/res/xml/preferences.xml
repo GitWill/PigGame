@@ -32,15 +32,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/double_down_title"
-        android:key="double_down_category_key">
-        <CheckBoxPreference
-            android:key="double_down_checkbox_key"
-            android:summary="@string/double_down_summary"
-            android:defaultValue="false" />
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:title="@string/die_color_title"
         android:key="die_color_category_key">
         <CheckBoxPreference
